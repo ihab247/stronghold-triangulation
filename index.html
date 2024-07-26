@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>End Portal Triangulation</title>
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+    <script>
+        function tangent(x) {
+            return Math.tan(x * (Math.PI / 180));
+        }
+        function getValue(name) {
+            return parseFloat(document.getElementById(name).value);
+        }
+        document.oninput = function () {
+            var x1 = getValue("x1");
+            var z1 = getValue("z1");
+            var yaw1 = getValue("yaw1");
+            var x2 = getValue("x2");
+            var z2 = getValue("z2");
+            var yaw2 = getValue("yaw2");
+            var zp = (z2 * tangent(yaw2) - z1 * tangent(yaw1) + x2 - x1) / (tangent(yaw2) - tangent(yaw1));
+            var xp = x1 - tangent(yaw1) * (zp - z1);
+            document.getElementById("output").textContent = `${Math.round(xp)} ${Math.round(zp)}`;
+        }
+    </script>
+</head>
+<body>
+    <p>Point 1</p>
+    <input id="x1" placeholder="x1">
+    <input id="z1" placeholder="z1">
+    <input id="yaw1" placeholder="yaw1">
+    <p>Point 2</p>
+    <input id="x2" placeholder="x2">
+    <input id="z2" placeholder="z2">
+    <input id="yaw2" placeholder="yaw2">
+    <p id="output"></p>
+</body>
+</html>
